@@ -7,11 +7,11 @@ const useStyles = makeStyles({
     component:{
         display: 'flex',
         alignItem: 'center',
-        justifyContent: 'space-between'
+        justifyContent: 'space-between',
     },
     Select:{
         width: 150,
-        height: 40,
+        height: 42,
         background: '#F6F6F6',
         paddingLeft:10,
         paddingRight:10,
@@ -26,13 +26,10 @@ const useStyles = makeStyles({
         height: 40,
         marginLeft:[5, '!important']
     },
-    content:{
-      paddingLeft: 2
-    }
 })
 
 const Mystyles = {
-  border: '1px solid #cccccc',
+  border: '1px solid #000000',
   borderRadius: '4px'
 }
 

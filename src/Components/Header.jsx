@@ -2,22 +2,21 @@ import {makeStyles, Box} from '@material-ui/core';
 
 const useStyles = makeStyles({
     logo: {
-        width:110,
-        padding: 10,
+        width:150,
+        padding: 5,
+        marginTop: 4,
     },
     Component: {
-        backgroundColor: '#000000',
-        marginBottom: 30
+        backgroundColor: '#547087',
     }
 })
 
 const Header = () => {
-    const logo = "https://miro.medium.com/max/802/1*dLWPk_rziSpWhPx1UWONbQ@2x.png";
     const classes = useStyles();
 
     return(
         <Box className={classes.Component}>
-            <img src={logo} alt="logo" className = {classes.logo}/>
+            <img src="https://www.dcvelocity.com/ext/resources/user-submissions/articles/bea7ca44-08a4-44ff-a5af-622605a12fb5.png?height=635&t=1602116058&width=1200" alt="logo" className={classes.logo}/>
         </Box>   
     )
 }
