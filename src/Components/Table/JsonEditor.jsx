@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import { Paper } from '@material-ui/core';
+import { Paper, Typography, Box } from '@material-ui/core';
 import { EditorView, keymap } from '@codemirror/view';
 import { EditorState } from '@codemirror/state';
 import { basicSetup } from '@codemirror/basic-setup';
@@ -26,9 +26,12 @@ const ResponseBody = ({ responseBody }) => {
   }, [responseBody]); // Removed editorRef.current from the dependency array
 
   return (
-    <Paper elevation={3} style={{ marginTop: 20, overflow: 'auto', border: '3px solid rgba(128, 168, 168,1)' }}>
-      <div ref={editorRef} style={{ height: '200px', width: '100%' }} />
-    </Paper>
+    <Box>
+      <Typography><h3 style={{ margin: '18px'}}>Body</h3></Typography>
+      <Paper elevation={3} style={{ marginTop: 10, overflow: 'auto', border: '3px solid rgba(128, 168, 168,1)' }}>
+        <div ref={editorRef} style={{ height: '200px', width: '100%' }} />
+      </Paper>
+    </Box>
   );
 };
 
