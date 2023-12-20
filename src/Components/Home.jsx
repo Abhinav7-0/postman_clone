@@ -1,7 +1,7 @@
-import Header from './Header'
-import Form from './Form'
-import SelectTab from './SelectTab'
-import Response from './Response'
+import Header from './URL_NavBar/Header'
+import Form from './URL_NavBar/Form'
+import SelectTab from './Table/SelectTab'
+import Response from './Response/Response'
 import { Box } from '@material-ui/core'
 import { makeStyles } from '@mui/styles'
 
