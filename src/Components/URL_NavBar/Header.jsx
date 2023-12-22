@@ -5,9 +5,9 @@ const useStyles = makeStyles({
         width:160,
         marginTop: 4,
     },
-    Component: {
+    /**Component: {
         backgroundColor: '#547087',
-    }
+    } */
 })
 
 const Header = () => {

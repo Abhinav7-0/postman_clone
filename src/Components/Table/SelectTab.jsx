@@ -1,10 +1,11 @@
 import { Box, Tabs, Tab } from "@mui/material";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { makeStyles } from "@mui/styles";
 
 //components 
 import CreateTable from "./CreateTable";
 import JsonEditorPanel from "./JsonEditor";
+import { DataContext } from "../../Context/DataProvider";
 
 const useStyles = makeStyles({
    box: {
@@ -16,10 +17,12 @@ const useStyles = makeStyles({
 })
 
 const SelectTab = () => {
-    const [paneValue, setPaneValue] = useState();
-    const [value, setValue] = useState(0);
+   const [paneValue, setPaneValue] = useState();
+   const [value, setValue] = useState(0);
 
-    const handleChange = (event, newValue) => {
+   const { ParamData, SetParamData, HeaderData, SetHeaderData} = useContext(DataContext);
+
+   const handleChange = (event, newValue) => {
         setValue(newValue);
     }
 
@@ -39,10 +42,10 @@ const SelectTab = () => {
             id={`simple-tabpanel-${0}`} 
             aria-labelledby={`simple-tab-${0}`} 
         >
-           <CreateTable text="Query Params"/>
+           <CreateTable text="Query Params" data={ParamData} setData={SetParamData}/>
         </Box>
         <Box role="tabpanel" hidden={value !== 1} id={`simple-tabpanel-${1}`} aria-labelledby={`simple-tab-${1}`}>
-           <CreateTable text="Headers"/>
+           <CreateTable text="Headers" data={HeaderData} setData={SetHeaderData}/>
         </Box>
         <Box role="tabpanel" hidden={value !== 2} id={`simple-tabpanel-${2}`} aria-labelledby={`simple-tab-${2}`}>
            <JsonEditorPanel paneValue={paneValue} setPaneValue={setPaneValue}/>

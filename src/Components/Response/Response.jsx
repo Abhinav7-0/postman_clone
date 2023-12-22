@@ -14,7 +14,7 @@ const useStyles = makeStyles({
    }
 })
 
-const Response = () => {
+const Response = ({data}) => {
     //const [paneValue, setPaneValue] = useState();
     const [value, setValue] = useState(0);
 
@@ -32,7 +32,7 @@ const Response = () => {
             <Tab  label="Test Results" className={classes.Tab}/>  
         </Tabs>
         <Box role="tabpanel" hidden={value !== 0} id={`simple-tabpanel-${0}`} aria-labelledby={`simple-tab-${0}`}>
-            <ResponseBody/>
+            <ResponseBody data={data}/>
         </Box>
         <Box role="tabpanel" hidden={value !== 1} id={`simple-tabpanel-${1}`} aria-labelledby={`simple-tab-${1}`}>
         </Box>
