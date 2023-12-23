@@ -11,7 +11,7 @@ const useStyles = makeStyles({
         border: '1px solid rgba(128, 168, 168,1)',
         borderCollapse:'collapse',
         padding: ['7px 5px', '!important'],
-    },
+    },  
 })
 
 const Mystyles = {
@@ -85,7 +85,7 @@ const PurpleCheckbox = withStyles({
     };
   
       // Remove the row with the given rowId from the data array
-      const handleDelete = () => {
+      const handleDelete = (id) => {
         // Log the current state before deletion
         console.log('Before deletion - Current Data:', data);
       
@@ -100,6 +100,11 @@ const PurpleCheckbox = withStyles({
 
         // Remove the row from the UI
         addRows((prevRows) => prevRows.filter((row) => row !== rowId));
+
+        // Ensure there's at least one row remaining
+        if (newData.length === 0) {
+          addRows([]);
+        }
       };
       
     const classes = useStyles();
@@ -139,7 +144,7 @@ const PurpleCheckbox = withStyles({
             onClick={handleClick}
             style={{ marginRight: '8px', boxShadow: clickBox ? '0 0 10px rgba(255,255,255, 0.7)' : 'none', transition: 'box-shadow 0.3s ease', cursor: 'pointer'  }}
           />
-          <FontAwesomeIcon icon={faTrash} size="lg" onClick={handleDelete} style={{ cursor: 'pointer' }} />
+          <FontAwesomeIcon icon={faTrash} size="lg" onClick={(e) => handleDelete(e)} style={{ cursor: 'pointer' }} />
         </TableCell>
       </TableRow>
     );

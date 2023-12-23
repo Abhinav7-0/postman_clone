@@ -10,6 +10,7 @@ import SelectTab from './Table/SelectTab';
 import Response from './Response/Response';
 import SnackBar from './Response/Snackbar';
 import ErrorScreen from './Response/ErrorScreen';
+import ResponseFooter from './Response/ResponseFooter';
 
 const useStyles = makeStyles({
   component: {
@@ -25,6 +26,11 @@ const Home = () => {
   const { formData, jsonText, paramData, headerData } = useContext(DataContext);
   const [errorMsg, setErrorMsg] = useState('');
   const [error, setError] = useState(false);
+  const [responseStats, setResponseStats] = useState({
+    statusCode: null,
+    responseSize: null,
+    responseTime: null,
+  });
 
   const onSendClick = async () => {
     try {
@@ -34,9 +40,22 @@ const Home = () => {
         setErrorMsg('Invalid URL'); // Set an appropriate error message
         return false;
       }
-
+       
+      const startTime = Date.now();
       const response = await fetchData(formData.url, formData.type, jsonText, paramData, headerData);
+      const endTime = Date.now();
+      const responseSize = JSON.stringify(response).length;
       console.log(response)
+
+      setResponseStats({
+        statusCode: response.status,
+        responseSize,
+        responseTime: endTime - startTime,
+      });
+
+
+      console.log('Response Stats:', responseStats); // Log the updated state
+      
       setApiResponse(response);
     } catch (error) {
       console.error('Error occurred:', error);
@@ -60,8 +79,13 @@ const Home = () => {
         ) : (
           <Response data={apiResponse} />
         )}
+        <ResponseFooter
+          statusCode={responseStats.statusCode}
+          responseSize={responseStats.responseSize}
+          responseTime={responseStats.responseTime}
+        />
       </Box>
-      { error && <SnackBar errorMsg={errorMsg} error={error} setError={setError} /> }
+      { error && <SnackBar errorMsg={errorMsg} error={error} setError={setError}/> }
     </>
   );
 };
