@@ -2,6 +2,9 @@ import { Box, Select, MenuItem} from "@material-ui/core";
 import { TextField, Button} from "@mui/material";
 import { makeStyles} from '@mui/styles';
 import { createTheme, ThemeProvider } from "@material-ui/core/styles";
+import { useContext } from "react";
+
+import { DataContext } from "../../Context/DataProvider";
 
 const useStyles = makeStyles({
     component:{
@@ -39,23 +42,36 @@ const theme = createTheme({
   }
 });
 
-const Form = () => {
+const Form = ({onSendClick}) => {
     const classes = useStyles();
+
+    const { formData, setFormData } = useContext(DataContext);
+
+    const handleChange = (e) => {
+      setFormData({ ...formData, type: e.target.value})
+      //console.log(formData)
+    }
+
+    const onUrlChange = (e) => {
+      setFormData({ ...formData, url: e.target.value})
+      //console.log(formData)
+    }
 
     return(
       <Box className={classes.component}>
         <ThemeProvider theme={theme}>
-          <Select label="POST" className={classes.Select} style={Mystyles}>
+          <Select value={formData.type} label="POST" onChange={(e) => handleChange(e)}  className={classes.Select} style={Mystyles}>
             <MenuItem value={'POST'}>POST</MenuItem>
             <MenuItem value={'GET'}>GET</MenuItem>
             <MenuItem value={'DELETE'}>DELETE</MenuItem>
+            <MenuItem value={'PUT'}>PUT</MenuItem>
           </Select>
         </ThemeProvider>
         <ThemeProvider theme={theme}>
-          <TextField size="small" className={classes.textfield} style={Mystyles}/>
+          <TextField size="small" className={classes.textfield} style={Mystyles} onChange={(e) => onUrlChange(e)}/>
         </ThemeProvider>
         <ThemeProvider theme={theme}>
-          <Button className={classes.button} variant="contained">
+          <Button className={classes.button} variant="contained" onClick={() => onSendClick()}>
             Send 
           </Button>
         </ThemeProvider>

@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { Typography, Table, TableBody, TableHead, TableRow, TableCell, Box, Paper} from "@material-ui/core";
 import { makeStyles } from "@mui/styles";
 import AddRow from "./AddRow";
@@ -28,7 +29,8 @@ const useStyles = makeStyles({
 
 
 
-const CreateTable = ({text}) => {
+const CreateTable = ({text, data, setData}) => {
+    const [rows, setRows] = useState([0])
     const classes = useStyles();
     return(
         <Box>
@@ -39,12 +41,17 @@ const CreateTable = ({text}) => {
                         <TableRow>
                             <TableCell align="center" className={classes.TableCell}>
                             </TableCell>
-                            <TableCell align="center" className={classes.TableCell}>KEY</TableCell>
-                            <TableCell align="center" className={classes.TableCell}>VALUE</TableCell>
+                            <TableCell align="center" className={classes.TableCell}><h4>KEY</h4></TableCell>
+                            <TableCell align="center" className={classes.TableCell}><h4>VALUE</h4></TableCell>
+                            <TableCell align="center" className={classes.TableCell}></TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        <AddRow />
+                        {
+                            rows.map((row, index) => (
+                                <AddRow addRows={setRows} rowId={index} key={index} data={data} setData={setData}/>
+                            ))
+                        }
                     </TableBody>
                 </Table>
             </Paper>

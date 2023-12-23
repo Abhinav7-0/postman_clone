@@ -1,12 +1,13 @@
 import './App.css';
 import Home from './Components/Home'
+import DataProvider from './Context/DataProvider';
 
 function App() {
 
   return (
-    <div className="App" >
+    <DataProvider className="App" >
       <Home/>
-    </div>
+    </DataProvider>
   );
 }
 
