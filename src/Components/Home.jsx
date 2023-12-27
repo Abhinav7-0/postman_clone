@@ -84,8 +84,8 @@ const Home = () => {
           responseSize={responseStats.responseSize}
           responseTime={responseStats.responseTime}
         />
-      </Box>
-      { error && <SnackBar errorMsg={errorMsg} error={error} setError={setError}/> }
+      </Box>  
+      { error && <SnackBar errorMsg={errorMsg} error={error} setError={setError}/> }   
     </>
   );
 };

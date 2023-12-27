@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { Box, Tabs, Tab } from "@mui/material";
 import { useState, useContext } from "react";
 import { makeStyles } from "@mui/styles";
@@ -5,6 +6,7 @@ import { makeStyles } from "@mui/styles";
 //components 
 import CreateTable from "./CreateTable";
 import JsonEditorPanel from "./JsonEditor";
+import Tests from "../../Tests/Tests"
 import { DataContext } from "../../Context/DataProvider";
 
 const useStyles = makeStyles({
@@ -21,8 +23,11 @@ const SelectTab = () => {
    const [value, setValue] = useState(0);
 
    const { ParamData, SetParamData, HeaderData, SetHeaderData} = useContext(DataContext);
+   console.log('ParamData:', ParamData);
+   console.log('HeaderData:', HeaderData);
 
    const handleChange = (event, newValue) => {
+       console.log('Tab Changed:', newValue);
         setValue(newValue);
     }
 
@@ -51,6 +56,7 @@ const SelectTab = () => {
            <JsonEditorPanel paneValue={paneValue} setPaneValue={setPaneValue}/>
         </Box>
         <Box role="tabpanel" hidden={value !== 3} id={`simple-tabpanel-${3}`} aria-labelledby={`simple-tab-${3}`}>
+           <Tests/>
         </Box>
      </Box>
   );

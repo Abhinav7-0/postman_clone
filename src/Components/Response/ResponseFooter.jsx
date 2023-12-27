@@ -7,12 +7,14 @@ import { Paper, Typography } from '@material-ui/core';
 const useStyles = makeStyles({
   footer: {
     marginTop: 20,
+    marginBottom: 20,
     padding: 10,
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
     backgroundColor: 'rgba(128, 168, 168, 0.2)',
     border: '3px solid rgba(128, 168, 168, 1)',
+    borderRadius: 8
   },
 });
 

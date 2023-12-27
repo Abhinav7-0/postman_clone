@@ -30,8 +30,26 @@ const useStyles = makeStyles({
 
 
 const CreateTable = ({text, data, setData}) => {
+    console.log('Current Data:', data);
     const [rows, setRows] = useState([0])
     const classes = useStyles();
+
+    const addRow = (rowId) => {
+        setRows((prevRows) => [...prevRows, rowId]);
+        console.log('Adding row, rowId:', rowId, 'Data:', data); // Log the data
+    };
+
+    const removeRow = (rowId) => {
+        // Filter out the row with the given rowId
+        const updatedRows = rows.filter((row) => row !== rowId);
+        console.log('Removing row, rowId:', rowId, 'Data:', data); // Log the data
+        setRows(updatedRows);
+    
+        // Remove the corresponding data entry
+        const updatedData = data.filter((entry) => entry.id !== rowId);
+        setData(updatedData);
+    };
+
     return(
         <Box>
             <Typography className={classes.root}><h3>{text}</h3></Typography>
@@ -48,8 +66,8 @@ const CreateTable = ({text, data, setData}) => {
                     </TableHead>
                     <TableBody>
                         {
-                            rows.map((row, index) => (
-                                <AddRow addRows={setRows} rowId={index} key={index} data={data} setData={setData}/>
+                            rows.map((rowId, index) => (
+                                <AddRow addRows={addRow} removeRow= {removeRow} rowId={rowId} key={index} data={data} setData={setData}/>
                             ))
                         }
                     </TableBody>

@@ -1,36 +1,53 @@
-export const fetchData = async (url, method, data, params, headers) => {
-  const requestOptions = {
-    method,
-    headers: {
-      'Content-Type': 'application/json',
-      ...headers,
-    },
-    body: method !== ('GET' || 'DELETE') ? JSON.stringify(data) : null,
-  };
-  
-  let apiUrl = url;
+import axios from 'axios';
+import { getHeadersAndParams } from '../Utils/common-utils';
 
-  // Append query parameters to the URL if available
-  if (params) {
-    const queryString = new URLSearchParams(params).toString();
-    apiUrl += `?${queryString}`;
-    console.log(apiUrl)
-  }
+export const fetchData = async (url, method, jsonText, paramData, headerData) => {
+    console.log('fetchData function is called');
+    const apiType = method;
+    const apiUrl = url;
+    const apiHeaders = {
+        'Content-Type': 'application/json',
+        ...getHeadersAndParams(headerData),
+    };
+    const apiParams = getHeadersAndParams(paramData);
 
-  try {
-    const response = await fetch(apiUrl, requestOptions);
+    console.log('API Headers:', apiHeaders);
+    console.log('API Params:', apiParams);
 
-    // Extract HTTP status code from the response
-    const statusCode = response.status;
+    try {
+        const response = await axios({
+            method: apiType,
+            url: apiUrl,
+            data: method !== 'GET' && method !== 'DELETE' ? jsonText : undefined,
+            headers: apiHeaders,
+            params: apiParams,
+        });
+        const result = response.data;
+        const statusCode = response.status;
+        return { status: statusCode, data: result };
 
-    // Parse the response body
-    const result = await response.json();
-
-    // Assuming responseData contains the actual data from the response
-    return { status: statusCode, data: result };
-  } catch (error) {
-    console.error(`Error in fetchData for ${method} ${url}:`, error);
-    throw error;
-  }
+    } catch (error) {
+        if (error.response) {
+            // The request was made and the server responded with a status code
+            // that falls out of the range of 2xx
+            return {
+                status: error.response.status,
+                data: error.response.data,
+            };
+        } else if (error.request) {
+            // The request was made but no response was received
+            console.error(`No response received for ${apiType} ${apiUrl}`);
+            return {
+                status: 500, // Internal Server Error
+                error: 'No response received from the server.',
+            };
+        } else {
+            // Something happened in setting up the request that triggered an Error
+            console.error(`Error setting up request for ${apiType} ${apiUrl}`, error.message);
+            return {
+                status: 500, // Internal Server Error
+                error: 'Error setting up the request.',
+            };
+        }
+    }
 };
-  

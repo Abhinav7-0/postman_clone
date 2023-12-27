@@ -33,7 +33,7 @@ const PurpleCheckbox = withStyles({
     checked: {}, // Empty rule for the checked state
   })((props) => <Checkbox color="default" {...props} />);
 
-  const AddRow = ({ addRows, rowId, data, setData }) => {
+  const AddRow = ({ addRows, rowId, data, setData, removeRow}) => {
     const [checkBox, setCheckBox] = useState(false);
     const [clickBox, setClickBox] = useState(false);
   
@@ -44,6 +44,11 @@ const PurpleCheckbox = withStyles({
       } else {
         setClickBox(false);
       }
+    };
+
+    const handleDelete = () => {
+      removeRow(rowId);
+      console.log('Clicked to delete row, rowId:', rowId, 'Data:', data); // Log the data
     };
   
     const handleChange = (e) => {
@@ -83,30 +88,7 @@ const PurpleCheckbox = withStyles({
         setData(newArray);
       }
     };
-  
-      // Remove the row with the given rowId from the data array
-      const handleDelete = (id) => {
-        // Log the current state before deletion
-        console.log('Before deletion - Current Data:', data);
-      
-        // Filter out the row with the given rowId
-        const newData = data.filter((row) => row.id !== rowId);
         
-        // Log the updated state after deletion
-        console.log('After deletion - Updated Data:', newData);
-      
-        // Update the state with the new data
-        setData([...newData]);
-
-        // Remove the row from the UI
-        addRows((prevRows) => prevRows.filter((row) => row !== rowId));
-
-        // Ensure there's at least one row remaining
-        if (newData.length === 0) {
-          addRows([]);
-        }
-      };
-      
     const classes = useStyles();
   
     return (
@@ -144,7 +126,7 @@ const PurpleCheckbox = withStyles({
             onClick={handleClick}
             style={{ marginRight: '8px', boxShadow: clickBox ? '0 0 10px rgba(255,255,255, 0.7)' : 'none', transition: 'box-shadow 0.3s ease', cursor: 'pointer'  }}
           />
-          <FontAwesomeIcon icon={faTrash} size="lg" onClick={(e) => handleDelete(e)} style={{ cursor: 'pointer' }} />
+          <FontAwesomeIcon icon={faTrash} size="lg" style={{ cursor: 'pointer' }} onClick={handleDelete}/>
         </TableCell>
       </TableRow>
     );
