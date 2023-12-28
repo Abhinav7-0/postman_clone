@@ -2,8 +2,8 @@ import { Box, Select, MenuItem} from "@material-ui/core";
 import { TextField, Button} from "@mui/material";
 import { makeStyles} from '@mui/styles';
 import { createTheme, ThemeProvider } from "@material-ui/core/styles";
-import { useContext } from "react";
-
+import { useContext, useState } from "react";
+import Loader from './Loader'
 import { DataContext } from "../../Context/DataProvider";
 
 const useStyles = makeStyles({
@@ -45,7 +45,10 @@ const theme = createTheme({
 const Form = ({onSendClick}) => {
     const classes = useStyles();
 
-    const { formData, setFormData } = useContext(DataContext);
+    const { formData, setFormData, jsonText} = useContext(DataContext);
+    const [loading, setLoading] = useState(false);
+
+    console.log('jsonText in Form:', jsonText);
 
     const handleChange = (e) => {
       setFormData({ ...formData, type: e.target.value})
@@ -56,6 +59,17 @@ const Form = ({onSendClick}) => {
       setFormData({ ...formData, url: e.target.value})
       //console.log(formData)
     }
+
+    const handleSendClick = async () => {
+      console.log('Form - jsonText:', jsonText);
+      setLoading(true);
+  
+      try {
+        await onSendClick();
+      } finally {
+        setLoading(false);
+      }
+    };
 
     return(
       <Box className={classes.component}>
@@ -71,12 +85,12 @@ const Form = ({onSendClick}) => {
           <TextField size="small" className={classes.textfield} style={Mystyles} onChange={(e) => onUrlChange(e)}/>
         </ThemeProvider>
         <ThemeProvider theme={theme}>
-          <Button className={classes.button} variant="contained" onClick={() => onSendClick()}>
+          <Button className={classes.button} variant="contained" onClick={handleSendClick}>
             Send 
           </Button>
+          {loading && <Loader />} {/* Conditionally render the loader */}
         </ThemeProvider>
       </Box>       
     )
 }
-
 export default Form;

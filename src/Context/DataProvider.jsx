@@ -9,6 +9,8 @@ const DataProvider = ({children}) => {
     const [HeaderData, SetHeaderData] = useState([]);
     const [jsonText, setjsonText] = useState('');
 
+    console.log('jsonText in DataProvider:', jsonText);
+
     return (
         <DataContext.Provider value={{
             formData,

@@ -28,6 +28,8 @@ export const checkParams = (formData, jsonText, paramData, headerData, setErrorM
 
 
 export const getHeadersAndParams = (objArr) => {
+    console.log('getHeadersAndParams function is called');
+    
     let obj = {};
     
     if (objArr && Array.isArray(objArr)) {
