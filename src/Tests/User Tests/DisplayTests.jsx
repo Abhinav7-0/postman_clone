@@ -22,7 +22,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
                         tests.map((test, index) => (
                             <TableRow>
                                 <TableCell>{index}</TableCell>
-                                <TableCell>Status</TableCell>
+                                <TableCell>{test.code}</TableCell>
                                 <TableCell>{test.message}</TableCell>
                                 <TableCell>
                                 <IconButton onClick={() => onDelete(index)}>

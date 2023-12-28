@@ -49,7 +49,6 @@ const TestResults = ({ status, data }) => {
 
     // Creating Default test cases:
     const [validRequest, setValidRequest] = useState(false);
-    const [empty, setEmpty] = useState(true);
     const [testResultsArr, setTestResultsArr] = useState([]);
 
     useEffect(() => {

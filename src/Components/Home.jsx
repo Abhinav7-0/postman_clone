@@ -54,7 +54,28 @@ const Home = () => {
       });
 
 
-      console.log('Response Stats:', responseStats); // Log the updated state
+      console.log('Response Stats:', responseStats);
+    
+      const backendResponse = await fetch('http://localhost:8080/api/response', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          responseData: JSON.stringify(response), // Include the API response in the request body
+          method: formData.type,
+          url: formData.url,
+          paramData: '',
+          headerData: '',
+          statusCode: response.status,
+          responseSize: responseSize,
+          responseTime: endTime-startTime,
+           defaultTestCase: ''
+        }),
+      });
+
+      const backendData = await backendResponse.json();
+      console.log('Data sent to backend:', backendData);
       
       setApiResponse(response);
     } catch (error) {
