@@ -1,4 +1,4 @@
-import { Paper } from "@mui/material";
+import { Paper, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 
 const styles = {
@@ -13,7 +13,7 @@ const styles = {
 
     fail: {
         display: 'inline-block',
-        padding: '1px',
+        padding: '5px',
         backgroundColor: '#D83A56',
         color: 'white',
         borderRadius: '4px',
@@ -57,16 +57,16 @@ const TestResults = ({ status, data }) => {
     
         // Default Test case: 0
         const defaultTestCase0 = validRequest
-            ? <p style={{ padding: '10px' }} key={0}>Default Test case 0: <span style={styles.pass}>Pass</span> : Valid Request Sent</p>
-            : <p style={{ padding: '10px' }} key={0}>Default Test case 0: <span style={styles.fail}>Failed</span> : Invalid Request Sent</p>;
+            ? <p style={{ padding: '10px' }} key={0}>Test case 0: <span style={styles.pass}>Pass</span> : Valid Request Sent</p>
+            : <p style={{ padding: '10px' }} key={0}>Test case 0: <span style={styles.fail}>Failed</span> : Invalid Request Sent</p>;
     
         // Default Test case: 1
         const allAttributesNotEmpty = checkAttributesNotEmpty(data);
         console.log('allAttributesNotEmpty:', allAttributesNotEmpty);
         
         const defaultTestCase1 = allAttributesNotEmpty
-            ? <p style={{ padding: '10px' }} key={1}>Default Test case 1: <span style={styles.pass}>Pass</span> : No Empty or null value found</p>
-            : <p style={{ padding: '10px' }} key={1}>Default Test case 1: <span style={styles.fail}>Failed</span> : Empty or null value found</p>;
+            ? <p style={{ padding: '10px' }} key={1}>Test case 1: <span style={styles.pass}>Pass</span> : No Empty or null value found</p>
+            : <p style={{ padding: '10px' }} key={1}>Test case 1: <span style={styles.fail}>Failed</span> : Empty or null value found</p>;
     
         // Use a callback function when updating state based on the current state
         setTestResultsArr(prevResults => [...prevResults, defaultTestCase0, defaultTestCase1]);
@@ -76,7 +76,7 @@ const TestResults = ({ status, data }) => {
 
     return (
         <>
-            <Paper style={{marginTop: 20, overflow: 'auto', border: '3px solid rgba(128, 168, 168,1)', backgroundColor: '#FFFFFF', borderRadius: 8 }}>
+            <Paper style={{marginTop: 20, overflow: 'auto', border: '3px solid rgba(128, 168, 168,1)', backgroundColor: '#FFFFFF', borderRadius: 8}}>
                 {testResultsArr.map(html => html)}
             </Paper>
         </>

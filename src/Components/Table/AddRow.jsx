@@ -34,7 +34,7 @@ const PurpleCheckbox = withStyles({
   })((props) => <Checkbox color="default" {...props} />);
 
   const AddRow = ({ addRows, rowId, data, setData, removeRow}) => {
-    const [checkBox, setCheckBox] = useState(false);
+    const [checkCheckbox, setCheckCheckbox] = useState(false);
     const [clickBox, setClickBox] = useState(false);
   
     const handleClick = () => {
@@ -52,50 +52,52 @@ const PurpleCheckbox = withStyles({
     };
   
     const handleChange = (e) => {
-      let result = data.find(entry => entry.id === Number(e.target.name));
-  
-      if (!checkBox) {
-        setCheckBox(true);
-        result = { ...result, id: rowId, check: true };
+        
+      let result = data.filter(entry => entry.id === Number(e.target.name))[0];
+      
+      if (!checkCheckbox) {
+          setCheckCheckbox(true);
+          addRows(oldArr => [...oldArr, rowId]);
+          result = { ...result, id: rowId, check: true }
       } else {
-        setCheckBox(false);
-        result = { ...result, id: rowId, check: false };
+          setCheckCheckbox(false);
+          result = { ...result, id: rowId, check: false }
       }
-  
+      
       let index = data.findIndex((value) => value.id === Number(e.target.name));
       if (index === -1) {
-        setData(oldArr => [...oldArr, result]);
+          setData(oldArr => [...oldArr, result]);
       } else {
-        const newArray = Object.assign([...data], {
-          [index]: result
-        });
-        setData(newArray);
+          const newArray = Object.assign([...data], {
+              [index]: result
+          });
+          setData(newArray)    
       }
-    };
+  }
   
     const onTextChange = (e) => {
-      let result = data.find(entry => entry.id === rowId);
-      result = { ...result, id: rowId, [e.target.name]: e.target.value };
-  
+      let result = data.filter(entry => entry.id === rowId)[0];
+      result = { ...result, id: rowId, [e.target.name]: e.target.value }
+
       let index = data.findIndex((value) => value.id === rowId);
-  
+      
       if (index === -1) {
-        setData(oldArr => [...oldArr, result]);
+          setData(oldArr => [...oldArr, result]);
       } else {
-        const newArray = Object.assign([...data], {
-          [index]: result
-        });
-        setData(newArray);
+          const newArray = Object.assign([...data], {
+              [index]: result
+          });
+          setData(newArray)    
       }
-    };
-        
+    } 
+
     const classes = useStyles();
   
     return (
       <TableRow>
         <TableCell align="left" className={classes.TableCell}>
           <PurpleCheckbox
-            checked={checkBox}
+            checked={checkCheckbox}
             onChange={(e) => handleChange(e)}
             name={rowId}
           />

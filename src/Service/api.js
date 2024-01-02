@@ -1,15 +1,16 @@
 import axios from 'axios';
 import { getHeadersAndParams } from '../Utils/common-utils';
 
-export const fetchData = async (url, method, jsonText, paramData, headerData) => {
+export const fetchData = async (url, method, jsonText, ParamData, HeaderData) => {
+
     console.log('fetchData function is called');
     const apiType = method;
     const apiUrl = url;
     const apiHeaders = {
         'Content-Type': 'application/json',
-        ...getHeadersAndParams(headerData),
+        ...getHeadersAndParams(HeaderData),
     };
-    const apiParams = getHeadersAndParams(paramData);
+    const apiParams = getHeadersAndParams(ParamData);
 
     console.log('API Headers:', apiHeaders);
     console.log('API Params:', apiParams);
