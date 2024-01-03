@@ -8,6 +8,7 @@ const DataProvider = ({children}) => {
     const [ParamData, SetParamData] =  useState([]);
     const [HeaderData, SetHeaderData] = useState([]);
     const [jsonText, setjsonText] = useState('');
+    const [tests, setTests] = useState([]);
 
     console.log('jsonText in DataProvider:', jsonText);
 
@@ -20,7 +21,9 @@ const DataProvider = ({children}) => {
             HeaderData,
             SetHeaderData,
             jsonText,
-            setjsonText
+            setjsonText,
+            tests,
+            setTests
         }}>
            {children}
         </DataContext.Provider>

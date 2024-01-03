@@ -1,8 +1,8 @@
-import { Typography, Box, Paper, Grid, Container } from "@material-ui/core"
-import ScienceRoundedIcon from '@mui/icons-material/ScienceRounded';
-import { useState } from "react";
+import { Typography, Box, Paper, Container } from "@material-ui/core"
+import { useContext } from "react";
 import CreateUserTests from "./User Tests/CreateUserTests";
 import DisplayTests from "./User Tests/DisplayTests";
+import { DataContext } from "../Context/DataProvider";
 
 const styles = {
     contain: {
@@ -21,7 +21,7 @@ const styles = {
 //marginTop: 10, overflow:'auto', border: '3px solid rgba(128, 168, 168,1)'
 
 const Tests = () => {
-    const [tests, setTests] = useState([]);
+    const {tests, setTests} = useContext(DataContext);
 
     const handleFormSubmit = (formData) => {
         // Add the form data to the tests array

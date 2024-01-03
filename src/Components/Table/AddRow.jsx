@@ -57,7 +57,6 @@ const PurpleCheckbox = withStyles({
       
       if (!checkCheckbox) {
           setCheckCheckbox(true);
-          addRows(oldArr => [...oldArr, rowId]);
           result = { ...result, id: rowId, check: true }
       } else {
           setCheckCheckbox(false);

@@ -46,7 +46,7 @@ console.log('Header Data:', HeaderData);
       }
        
       const startTime = Date.now();
-      const response = await fetchData(formData.url, formData.type, jsonText, ParamData, HeaderData);
+      const response = await fetchData(formData.url, formData.type, jsonText, ParamData, HeaderData); // Data coming as response
       const endTime = Date.now();
       const responseSize = JSON.stringify(response).length;
       console.log(response)
@@ -72,8 +72,8 @@ console.log('Header Data:', HeaderData);
           responseData: JSON.stringify(response), // Include the API response in the request body
           method: formData.type,
           url: formData.url,
-          paramData: JSON.stringify(paramJson),
-          headerData: JSON.stringify(headerJson),
+          queryParameters: paramJson,
+          headers: headerJson,
           statusCode: response.status,
           responseSize: responseSize,
           responseTime: endTime-startTime,

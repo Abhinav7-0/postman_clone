@@ -88,7 +88,7 @@ const Form = ({onSendClick}) => {
           <Button className={classes.button} variant="contained" onClick={handleSendClick}>
             Send 
           </Button>
-          {loading && <Loader />} {/* Conditionally render the loader */}
+          {loading && <Loader />} 
         </ThemeProvider>
       </Box>       
     )

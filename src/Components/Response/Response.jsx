@@ -1,8 +1,9 @@
 import { Box, Tabs, Tab } from "@mui/material";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { makeStyles } from "@mui/styles";
 import ResponseBody from "./ResponseBody";
 import TestResults from "../../Tests/TestResults";
+import { DataContext } from "../../Context/DataProvider";
 
 //components 
 
@@ -17,6 +18,7 @@ const useStyles = makeStyles({
 
 const Response = ({data}) => {
     //const [paneValue, setPaneValue] = useState();
+    const {tests, setTests} = useContext(DataContext);
     const [value, setValue] = useState(0);
 
     const handleChange = (event, newValue) => {
@@ -35,7 +37,7 @@ const Response = ({data}) => {
             <ResponseBody data={data}/>
         </Box>
         <Box role="tabpanel" hidden={value !== 1} id={`simple-tabpanel-${1}`} aria-labelledby={`simple-tab-${1}`}>
-            <TestResults data={data} status={data?.status}/>
+            <TestResults data={data} status={data?.status} tests={tests} setTests={setTests}/>
         </Box>
      </Box>
   );

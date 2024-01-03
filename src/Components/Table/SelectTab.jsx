@@ -9,9 +9,10 @@ import JsonEditorPanel from "./JsonEditor";
 import Tests from "../../Tests/Tests"
 import { DataContext } from "../../Context/DataProvider";
 
+
 const useStyles = makeStyles({
    box: {
-    marginTop: 10
+    marginTop: 10,
    },
    Tab: {
     fontWeight:["bold", "!important"],
@@ -56,7 +57,7 @@ const SelectTab = () => {
            <JsonEditorPanel paneValue={paneValue} setPaneValue={setPaneValue}/>
         </Box>
         <Box role="tabpanel" hidden={value !== 3} id={`simple-tabpanel-${3}`} aria-labelledby={`simple-tab-${3}`}>
-            <Tests/>
+           <Tests/>
         </Box>
      </Box>
   );
