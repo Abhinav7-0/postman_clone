@@ -4,6 +4,10 @@ import { faClockRotateLeft } from '@fortawesome/free-solid-svg-icons';
 
 const useStyles = makeStyles({
   header: {
+    position: 'fixed',
+    top: 0,
+    left: 0,
+    right: 0,
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',

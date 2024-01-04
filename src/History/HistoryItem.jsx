@@ -3,8 +3,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import axios from 'axios';
 import { Box, Typography } from '@mui/material';
+import { useContext} from 'react';
+import { DataContext } from '../Context/DataProvider'; 
 
-const HistoryItem = ({ data, onDelete }) => {
+const HistoryItem = ({ data, onDelete, onItemClick }) => {
+
+    const { setFormData, formData} = useContext(DataContext);
     const handleDelete = async () => {
         try {
           
@@ -15,12 +19,18 @@ const HistoryItem = ({ data, onDelete }) => {
         }
       };
 
+      const handleClick = (url, method) => {
+        setFormData({ ...formData, url, type:method });
+        console.log(formData);
+      }
+      
   return (
     <>
    <Box>
       <hr/>
-      <Box display="flex" alignItems="center">
-        <Box flexGrow={1}>
+      <Box display="flex" alignItems="center" 
+          style={{ cursor: 'pointer' }}>
+        <Box flexGrow={1} onClick={() => handleClick(data.url, data.method)} >
           <Typography variant="subtitle1">Method: {data.method}</Typography>
           <Typography variant="subtitle1">URL: {data.url}</Typography>
           <Typography variant="subtitle1">Status: {data.statusCode}</Typography>

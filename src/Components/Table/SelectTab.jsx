@@ -8,6 +8,7 @@ import CreateTable from "./CreateTable";
 import JsonEditorPanel from "./JsonEditor";
 import Tests from "../../Tests/Tests"
 import { DataContext } from "../../Context/DataProvider";
+import TestJsonText from "../../Tests/TestJsonText";
 
 
 const useStyles = makeStyles({
@@ -57,7 +58,7 @@ const SelectTab = () => {
            <JsonEditorPanel paneValue={paneValue} setPaneValue={setPaneValue}/>
         </Box>
         <Box role="tabpanel" hidden={value !== 3} id={`simple-tabpanel-${3}`} aria-labelledby={`simple-tab-${3}`}>
-           <Tests/>
+           <TestJsonText/>
         </Box>
      </Box>
   );

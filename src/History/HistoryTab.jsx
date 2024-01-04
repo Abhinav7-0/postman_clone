@@ -6,7 +6,7 @@ import { makeStyles } from '@mui/styles';
 
 const HistoryTab = () => {
   const [historyData, setHistoryData] = useState([]);
-  const [totalResponses, setTotalResponses] = useState(0);
+  
 
   const useStyles = makeStyles({
     component: {
@@ -18,7 +18,7 @@ const HistoryTab = () => {
   const handleDelete = (itemId) => {
     setHistoryData((prevData) => prevData.filter((item) => item.id !== itemId));
   };
-  
+
   useEffect(() => {
     fetchHistoryData();
   }, []);
@@ -28,7 +28,6 @@ const HistoryTab = () => {
       const response = await axios.get('http://localhost:8080/api/history');
       const responseData = response.data;
       setHistoryData(responseData);
-      setTotalResponses(responseData.length);
     } catch (error) {
       console.error('Error fetching history data:', error);
     }
@@ -41,7 +40,6 @@ const HistoryTab = () => {
     <Paper  elevation={3} style={{ marginTop: 20, overflow: 'hidden', border: '3px solid rgba(128, 168, 168,1)', borderRadius: 8 }}>
       <div style={{ marginLeft: 10, marginRight: 10 }}>
       <h2>Request History</h2>
-      <p>Total Responses: {totalResponses}</p>
       {historyData.map((historyItem) => (
         <HistoryItem key={historyItem.id} data={historyItem} onDelete={handleDelete}/>
       ))}
