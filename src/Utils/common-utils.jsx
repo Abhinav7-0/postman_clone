@@ -22,7 +22,7 @@ export const checkParams = (formData, jsonText, paramData, headerData, setErrorM
         setErrorMsg('Text is not valid json');
         return false;
     }
-
+    
     return true;
 }
 
