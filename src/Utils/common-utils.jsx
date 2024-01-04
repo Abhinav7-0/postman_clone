@@ -22,7 +22,7 @@ export const checkParams = (formData, jsonText, paramData, headerData, setErrorM
         setErrorMsg('Text is not valid json');
         return false;
     }
-
+    
     return true;
 }
 
@@ -31,6 +31,7 @@ export const getHeadersAndParams = (objArr) => {
     console.log('getHeadersAndParams function is called');
     
     let obj = {};
+    console.log("ObjArr", objArr);
     
     if (objArr && Array.isArray(objArr)) {
         objArr.forEach(data => {
@@ -38,6 +39,8 @@ export const getHeadersAndParams = (objArr) => {
                 obj = { ...obj, [data.key]: data.value };
             }
         });
+    }else{
+        console.log('error'); 
     }
 
     return obj;

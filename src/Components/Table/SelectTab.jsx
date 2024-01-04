@@ -8,10 +8,12 @@ import CreateTable from "./CreateTable";
 import JsonEditorPanel from "./JsonEditor";
 import Tests from "../../Tests/Tests"
 import { DataContext } from "../../Context/DataProvider";
+import TestJsonText from "../../Tests/TestJsonText";
+
 
 const useStyles = makeStyles({
    box: {
-    marginTop: 10
+    marginTop: 10,
    },
    Tab: {
     fontWeight:["bold", "!important"],
@@ -47,16 +49,16 @@ const SelectTab = () => {
             id={`simple-tabpanel-${0}`} 
             aria-labelledby={`simple-tab-${0}`} 
         >
-           <CreateTable text="Query Params" data={ParamData} setData={SetParamData}/>
+           <CreateTable text={"Query Params"} data={ParamData} setData={SetParamData}/>
         </Box>
         <Box role="tabpanel" hidden={value !== 1} id={`simple-tabpanel-${1}`} aria-labelledby={`simple-tab-${1}`}>
-           <CreateTable text="Headers" data={HeaderData} setData={SetHeaderData}/>
+           <CreateTable text={"Headers"} data={HeaderData} setData={SetHeaderData}/>
         </Box>
         <Box role="tabpanel" hidden={value !== 2} id={`simple-tabpanel-${2}`} aria-labelledby={`simple-tab-${2}`}>
            <JsonEditorPanel paneValue={paneValue} setPaneValue={setPaneValue}/>
         </Box>
         <Box role="tabpanel" hidden={value !== 3} id={`simple-tabpanel-${3}`} aria-labelledby={`simple-tab-${3}`}>
-           <Tests/>
+           <TestJsonText/>
         </Box>
      </Box>
   );

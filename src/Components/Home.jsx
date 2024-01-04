@@ -11,6 +11,7 @@ import Response from './Response/Response';
 import SnackBar from './Response/Snackbar';
 import ErrorScreen from './Response/ErrorScreen';
 import ResponseFooter from './Response/ResponseFooter';
+import HistoryTab from '../History/HistoryTab';
 
 const useStyles = makeStyles({
   component: {
@@ -23,7 +24,7 @@ const Home = () => {
   const classes = useStyles();
   const [errorResponse, setErrorResponse] = useState(false);
   const [apiResponse, setApiResponse] = useState({});
-  const { formData, jsonText, paramData, headerData } = useContext(DataContext);
+  const { formData, jsonText, ParamData, HeaderData } = useContext(DataContext);
   const [errorMsg, setErrorMsg] = useState('');
   const [error, setError] = useState(false);
   const [responseStats, setResponseStats] = useState({
@@ -31,18 +32,21 @@ const Home = () => {
     responseSize: null,
     responseTime: null,
   });
+  const [showHistory, setShowHistory] = useState(false);
+
+console.log('Header Data:', HeaderData);
 
   const onSendClick = async () => {
     try {
       // Check for valid parameters before making the request
-      if (!checkParams(formData, jsonText, paramData, headerData)) {
+      if (!checkParams(formData, jsonText, ParamData, HeaderData)) {
         setError(true); // Set error state to true for showing the SnackBar
         setErrorMsg('Invalid URL'); // Set an appropriate error message
         return false;
       }
        
       const startTime = Date.now();
-      const response = await fetchData(formData.url, formData.type, jsonText, paramData, headerData);
+      const response = await fetchData(formData.url, formData.type, jsonText, ParamData, HeaderData); // Data coming as response
       const endTime = Date.now();
       const responseSize = JSON.stringify(response).length;
       console.log(response)
@@ -55,6 +59,9 @@ const Home = () => {
 
 
       console.log('Response Stats:', responseStats);
+
+      const paramJson = JSON.stringify(ParamData);
+      const headerJson = JSON.stringify(HeaderData);
     
       const backendResponse = await fetch('http://localhost:8080/api/response', {
         method: 'POST',
@@ -65,12 +72,12 @@ const Home = () => {
           responseData: JSON.stringify(response), // Include the API response in the request body
           method: formData.type,
           url: formData.url,
-          paramData: '',
-          headerData: '',
+          queryParameters: paramJson,
+          headers: headerJson,
           statusCode: response.status,
           responseSize: responseSize,
           responseTime: endTime-startTime,
-           defaultTestCase: ''
+          defaultTestCase: '',
         }),
       });
 
@@ -88,10 +95,14 @@ const Home = () => {
     setErrorResponse(false);
     setApiResponse({});
   };
+  
+  const toggleHistory = () => {
+    setShowHistory((prev) => !prev);
+  };
 
   return (
     <>
-      <Header />
+      <Header onClick={toggleHistory}/>
       <Box className={classes.component}>
         <Form onSendClick={onSendClick} />
         <SelectTab />
@@ -107,6 +118,7 @@ const Home = () => {
         />
       </Box>  
       { error && <SnackBar errorMsg={errorMsg} error={error} setError={setError}/> }   
+      { showHistory && <HistoryTab/> }
     </>
   );
 };

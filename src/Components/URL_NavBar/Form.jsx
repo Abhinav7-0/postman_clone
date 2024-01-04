@@ -82,13 +82,13 @@ const Form = ({onSendClick}) => {
           </Select>
         </ThemeProvider>
         <ThemeProvider theme={theme}>
-          <TextField size="small" className={classes.textfield} style={Mystyles} onChange={(e) => onUrlChange(e)}/>
+          <TextField value={formData.url} size="small" className={classes.textfield} style={Mystyles} onChange={(e) => onUrlChange(e)}/>
         </ThemeProvider>
         <ThemeProvider theme={theme}>
           <Button className={classes.button} variant="contained" onClick={handleSendClick}>
             Send 
           </Button>
-          {loading && <Loader />} {/* Conditionally render the loader */}
+          {loading && <Loader />} 
         </ThemeProvider>
       </Box>       
     )
